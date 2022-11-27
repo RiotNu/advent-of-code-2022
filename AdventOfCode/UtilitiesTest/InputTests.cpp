@@ -1,19 +1,24 @@
 #include "pch.h"
 #include "../Utilities/Utilities.h"
 
-TEST(AssertionsDeathTest, VerifyElseCrashFailureKillsProcess)
+TEST(ReadAllLinesInFileTests, HandlesFileThatDoesNotExist)
 {
-	ASSERT_DEATH(Utilities::VerifyElseCrash(false), "");
+	auto result = Utilities::ReadAllLinesInFile("BogusFile.txt");
+	EXPECT_EQ(result.size(), 0);
 }
 
-TEST(AssertionsDeathTest, VerifyElseCrashSuccessDoesNotKillProcess)
+TEST(ReadAllLinesInFileTests, HandlesBasicTextFile)
 {
-	Utilities::VerifyElseCrash(true);
-}
-
-TEST(AssertionsDeathTest, VerifyNotReachedKillsProcess)
-{
-	ASSERT_DEATH(Utilities::VerifyNotReached(), "");
+	auto result = Utilities::ReadAllLinesInFile("ReadAllLinesInFileTests.input");
+	ASSERT_EQ(result.size(), 8);
+	EXPECT_EQ(result[0], "abcd efgh ijkl");
+	EXPECT_EQ(result[1], "the cat in the hat");
+	EXPECT_EQ(result[2], "1");
+	EXPECT_EQ(result[3], "\t");
+	EXPECT_EQ(result[4], "2");
+	EXPECT_EQ(result[5], "3");
+	EXPECT_EQ(result[6], "");
+	EXPECT_EQ(result[7], "15 18 19");
 }
 
 TEST(SplitStringTests, HandlesEmptyInput)
@@ -81,7 +86,7 @@ TEST(SplitStringTests, HandlesComplexDelimiters)
 		EXPECT_EQ(result[0], "oh");
 		EXPECT_EQ(result[1], "my");
 	}
-	
+
 	{
 		auto result = Utilities::SplitString("the catcat in the hat laughed at a cat", "cat");
 		ASSERT_EQ(result.size(), 4);
@@ -92,15 +97,15 @@ TEST(SplitStringTests, HandlesComplexDelimiters)
 	}
 }
 
-TEST(ReadCommaSeparatedInt32sTests, HandlesEmptyInput)
+TEST(SplitCommaSeparatedInt32sTests, HandlesEmptyInput)
 {
-	auto result = Utilities::ReadCommaSeparatedInt32s("");
+	auto result = Utilities::SplitCommaSeparatedInt32s("");
 	ASSERT_EQ(result.size(), 0);
 }
 
-TEST(ReadCommaSeparatedInt32sTests, HandlesSimpleCase)
+TEST(SplitCommaSeparatedInt32sTests, HandlesSimpleCase)
 {
-	auto result = Utilities::ReadCommaSeparatedInt32s("-1,0,1,2,3");
+	auto result = Utilities::SplitCommaSeparatedInt32s("-1,0,1,2,3");
 	ASSERT_EQ(result.size(), 5);
 	for (auto i = 0; i < result.size(); ++i)
 	{
@@ -108,23 +113,23 @@ TEST(ReadCommaSeparatedInt32sTests, HandlesSimpleCase)
 	}
 }
 
-TEST(ReadCommaSeparatedInt32sTests, HandlesInt32MinAndInt32Max)
+TEST(SplitCommaSeparatedInt32sTests, HandlesInt32MinAndInt32Max)
 {
-	auto result = Utilities::ReadCommaSeparatedInt32s("-2147483648,2147483647");
+	auto result = Utilities::SplitCommaSeparatedInt32s("-2147483648,2147483647");
 	ASSERT_EQ(result.size(), 2);
 	EXPECT_EQ(result[0], INT32_MIN);
 	EXPECT_EQ(result[1], INT32_MAX);
 }
 
-TEST(ReadCommaSeparatedInt64sTests, HandlesEmptyInput)
+TEST(SplitCommaSeparatedInt64sTests, HandlesEmptyInput)
 {
-	auto result = Utilities::ReadCommaSeparatedInt64s("");
+	auto result = Utilities::SplitCommaSeparatedInt64s("");
 	ASSERT_EQ(result.size(), 0);
 }
 
-TEST(ReadCommaSeparatedInt64sTests, HandlesSimpleCase)
+TEST(SplitCommaSeparatedInt64sTests, HandlesSimpleCase)
 {
-	auto result = Utilities::ReadCommaSeparatedInt64s("-1,0,1,2,3");
+	auto result = Utilities::SplitCommaSeparatedInt64s("-1,0,1,2,3");
 	ASSERT_EQ(result.size(), 5);
 	for (auto i = 0; i < result.size(); ++i)
 	{
@@ -132,9 +137,9 @@ TEST(ReadCommaSeparatedInt64sTests, HandlesSimpleCase)
 	}
 }
 
-TEST(ReadCommaSeparatedInt64sTests, HandlesInt64MinAndInt64Max)
+TEST(SplitCommaSeparatedInt64sTests, HandlesInt64MinAndInt64Max)
 {
-	auto result = Utilities::ReadCommaSeparatedInt64s("-9223372036854775808,9223372036854775807");
+	auto result = Utilities::SplitCommaSeparatedInt64s("-9223372036854775808,9223372036854775807");
 	ASSERT_EQ(result.size(), 2);
 	EXPECT_EQ(result[0], INT64_MIN);
 	EXPECT_EQ(result[1], INT64_MAX);
