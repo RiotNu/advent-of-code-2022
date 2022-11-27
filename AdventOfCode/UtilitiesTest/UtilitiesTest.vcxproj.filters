@@ -23,6 +23,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include=".runsettings" />
   </ItemGroup>
 </Project>
