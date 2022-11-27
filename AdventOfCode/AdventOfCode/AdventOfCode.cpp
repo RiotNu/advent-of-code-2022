@@ -8,7 +8,6 @@
 
 int main()
 {
-    fnUtilities();
     std::cout << "Hello World!\n";
 }
 
