@@ -22,6 +22,27 @@ namespace Utilities
 		return lines;
 	}
 
+	bool WriteAllLinesToFile(const std::filesystem::path& path, const std::vector<std::string>& lines)
+	{
+		auto fileStream = std::ofstream{ path };
+		if (!fileStream.good())
+		{
+			return false;
+		}
+
+		for (auto i = 0; i < lines.size(); ++i)
+		{
+			if (i != 0)
+			{
+				fileStream << '\n';
+			}
+
+			fileStream << lines[i];
+		}
+
+		return fileStream.good();
+	}
+
 	std::vector<std::string> SplitString(const std::string& input, const std::string& delimiter)
 	{
 		return Utilities::SplitStringAndTransform<std::string>(

@@ -148,12 +148,63 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdventOfCode.cpp" />
+    <ClCompile Include="CodeGenerator.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Puzzle01A.cpp" />
+    <ClCompile Include="Puzzle01B.cpp" />
+    <ClCompile Include="Puzzle02A.cpp" />
+    <ClCompile Include="Puzzle02B.cpp" />
+    <ClCompile Include="Puzzle03A.cpp" />
+    <ClCompile Include="Puzzle03B.cpp" />
+    <ClCompile Include="Puzzle04A.cpp" />
+    <ClCompile Include="Puzzle04B.cpp" />
+    <ClCompile Include="Puzzle05A.cpp" />
+    <ClCompile Include="Puzzle05B.cpp" />
+    <ClCompile Include="Puzzle06A.cpp" />
+    <ClCompile Include="Puzzle06B.cpp" />
+    <ClCompile Include="Puzzle07A.cpp" />
+    <ClCompile Include="Puzzle07B.cpp" />
+    <ClCompile Include="Puzzle08A.cpp" />
+    <ClCompile Include="Puzzle08B.cpp" />
+    <ClCompile Include="Puzzle09A.cpp" />
+    <ClCompile Include="Puzzle09B.cpp" />
+    <ClCompile Include="Puzzle10A.cpp" />
+    <ClCompile Include="Puzzle10B.cpp" />
+    <ClCompile Include="Puzzle11A.cpp" />
+    <ClCompile Include="Puzzle11B.cpp" />
+    <ClCompile Include="Puzzle12A.cpp" />
+    <ClCompile Include="Puzzle12B.cpp" />
+    <ClCompile Include="Puzzle13A.cpp" />
+    <ClCompile Include="Puzzle13B.cpp" />
+    <ClCompile Include="Puzzle14A.cpp" />
+    <ClCompile Include="Puzzle14B.cpp" />
+    <ClCompile Include="Puzzle15A.cpp" />
+    <ClCompile Include="Puzzle15B.cpp" />
+    <ClCompile Include="Puzzle16A.cpp" />
+    <ClCompile Include="Puzzle16B.cpp" />
+    <ClCompile Include="Puzzle17A.cpp" />
+    <ClCompile Include="Puzzle17B.cpp" />
+    <ClCompile Include="Puzzle18A.cpp" />
+    <ClCompile Include="Puzzle18B.cpp" />
+    <ClCompile Include="Puzzle19A.cpp" />
+    <ClCompile Include="Puzzle19B.cpp" />
+    <ClCompile Include="Puzzle20A.cpp" />
+    <ClCompile Include="Puzzle20B.cpp" />
+    <ClCompile Include="Puzzle21A.cpp" />
+    <ClCompile Include="Puzzle21B.cpp" />
+    <ClCompile Include="Puzzle22A.cpp" />
+    <ClCompile Include="Puzzle22B.cpp" />
+    <ClCompile Include="Puzzle23A.cpp" />
+    <ClCompile Include="Puzzle23B.cpp" />
+    <ClCompile Include="Puzzle24A.cpp" />
+    <ClCompile Include="Puzzle24B.cpp" />
+    <ClCompile Include="Puzzle25A.cpp" />
+    <ClCompile Include="Puzzle25B.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utilities\Utilities.vcxproj">
@@ -161,7 +212,36 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CodeGenerator.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PuzzleSolvers.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Puzzle01.input" />
+    <None Include="Puzzle02.input" />
+    <None Include="Puzzle03.input" />
+    <None Include="Puzzle04.input" />
+    <None Include="Puzzle05.input" />
+    <None Include="Puzzle06.input" />
+    <None Include="Puzzle07.input" />
+    <None Include="Puzzle08.input" />
+    <None Include="Puzzle09.input" />
+    <None Include="Puzzle10.input" />
+    <None Include="Puzzle11.input" />
+    <None Include="Puzzle12.input" />
+    <None Include="Puzzle13.input" />
+    <None Include="Puzzle14.input" />
+    <None Include="Puzzle15.input" />
+    <None Include="Puzzle16.input" />
+    <None Include="Puzzle17.input" />
+    <None Include="Puzzle18.input" />
+    <None Include="Puzzle19.input" />
+    <None Include="Puzzle20.input" />
+    <None Include="Puzzle21.input" />
+    <None Include="Puzzle22.input" />
+    <None Include="Puzzle23.input" />
+    <None Include="Puzzle24.input" />
+    <None Include="Puzzle25.input" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

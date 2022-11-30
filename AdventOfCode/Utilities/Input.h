@@ -5,6 +5,9 @@ namespace Utilities
 	// Reads the provided text file and returns all lines as strings.
 	std::vector<std::string> ReadAllLinesInFile(const std::filesystem::path& path);
 
+	// Writes the provided lines to the specified text file, overwriting if it exists.
+	bool WriteAllLinesToFile(const std::filesystem::path& path, const std::vector<std::string>& lines);
+
 	// Parses the input string into tokens separated by the provided delimiter.
 	std::vector<std::string> SplitString(const std::string& input, const std::string& delimiter);
 
