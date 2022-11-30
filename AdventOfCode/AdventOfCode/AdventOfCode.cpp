@@ -1,7 +1,7 @@
 // AdventOfCode.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
- 
- #include "pch.h"
+
+#include "pch.h"
 #include "../Utilities/Utilities.h"
 #include "PuzzleSolvers.h"
 
