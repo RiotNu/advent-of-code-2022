@@ -4,10 +4,22 @@
 
 namespace Puzzle01A
 {
-    void PrintSolution()
-    {
-        auto input = Utilities::ReadAllLinesInFile("Puzzle01.input");
+	void PrintSolution()
+	{
+		auto input = Utilities::ReadAllLinesInFile("Puzzle01.input");
 
-        std::cout << "Puzzle01A not yet solved!";
-    }
+		auto currentMaxCalories = 0;
+		for (auto i = 0; i < input.size(); ++i)
+		{
+			auto currentCalories = 0;
+			while (i != input.size() && input[i].size() != 0)
+			{
+				currentCalories += std::stoi(input[i++]);
+			}
+
+			currentMaxCalories = std::max(currentCalories, currentMaxCalories);
+		}
+
+		std::cout << currentMaxCalories;
+	}
 }
