@@ -25,20 +25,9 @@ namespace Utilities
 		const std::string& delimiter,
 		std::function<T(const std::string&)> transform)
 	{
-		constexpr auto subrangeToString =
-			[](const auto& subrange)
-		{
-			return std::string{ std::string_view{ subrange.begin(), subrange.end() } };
-		};
-
-		auto tokens = std::vector<T>{};
-		for (const auto& token : std::views::split(input, delimiter)
-			| std::views::transform(subrangeToString)
-			| std::views::transform(transform))
-		{
-			tokens.emplace_back(token);
-		}
-
-		return tokens;
+		return std::views::split(input, delimiter)
+			| std::views::transform([](const auto& subrange){ return std::string{ subrange.begin(), subrange.end() }; })
+			| std::views::transform(transform)
+			| std::ranges::to<std::vector>();
 	}
 }

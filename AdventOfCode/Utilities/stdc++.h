@@ -138,3 +138,9 @@
 #include <source_location>
 #include <syncstream>
 #include <version>
+
+// C++23 experimental features
+#include <expected>
+#include <spanstream>
+#include <stacktrace>
+#include <stdatomic.h>

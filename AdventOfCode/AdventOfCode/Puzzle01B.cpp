@@ -6,26 +6,21 @@ namespace Puzzle01B
 {
 	void PrintSolution()
 	{
-		auto input = Utilities::ReadAllLinesInFile("Puzzle01.input");
+		auto input = Utilities::ReadAllLinesInFile("Puzzle01.input");	
 
-		auto calorieCounts = std::vector<int>{};
-		for (auto i = 0; i < input.size(); ++i)
-		{
-			auto currentCalories = 0;
-			while (i != input.size() && input[i].size() != 0)
+		// Track the total snack calories for each elf.
+		constexpr auto sumSnackCaloriesForElf =
+			[](const auto& currentElfInput)
 			{
-				currentCalories += std::stoi(input[i++]);
-			}
+				auto elfSnackCalories = currentElfInput | std::views::transform([](const std::string& line) { return std::stoi(line); });
+				return std::accumulate(elfSnackCalories.begin(), elfSnackCalories.end(), 0);
+			};
+		auto caloriesPerElf = input | std::views::split("") | std::views::transform(sumSnackCaloriesForElf) | std::ranges::to<std::vector>();
 
-			calorieCounts.emplace_back(currentCalories);
-		}
-
-		std::sort(calorieCounts.begin(), calorieCounts.end());
-		
-		auto sumOfTopThreeCalories =
-			calorieCounts[calorieCounts.size() - 1]
-			+ calorieCounts[calorieCounts.size() - 2]
-			+ calorieCounts[calorieCounts.size() - 3];
+		// Sum the total calories from the three elves carrying the most snacks.
+		std::ranges::sort(caloriesPerElf, std::ranges::greater());
+		auto topThreeCaloriesView = caloriesPerElf | std::ranges::views::take(3);
+		auto sumOfTopThreeCalories = std::accumulate(topThreeCaloriesView.begin(), topThreeCaloriesView.end(), 0);
 
 		std::cout << sumOfTopThreeCalories;
 	}

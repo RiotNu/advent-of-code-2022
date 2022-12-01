@@ -8,18 +8,16 @@ namespace Puzzle01A
 	{
 		auto input = Utilities::ReadAllLinesInFile("Puzzle01.input");
 
-		auto currentMaxCalories = 0;
-		for (auto i = 0; i < input.size(); ++i)
+		// Add up the snack calories for each elf and find the highest total calories.
+		constexpr auto sumSnackCaloriesForElf =
+			[](const auto& currentElfInput)
 		{
-			auto currentCalories = 0;
-			while (i != input.size() && input[i].size() != 0)
-			{
-				currentCalories += std::stoi(input[i++]);
-			}
+			auto elfSnackCalories = currentElfInput | std::views::transform([](const std::string& line) { return std::stoi(line); });
+			return std::accumulate(elfSnackCalories.begin(), elfSnackCalories.end(), 0);
+		};
+		auto caloriesPerElfView = input | std::views::split("") | std::views::transform(sumSnackCaloriesForElf);
+		auto maxCalories = std::ranges::max(caloriesPerElfView);
 
-			currentMaxCalories = std::max(currentCalories, currentMaxCalories);
-		}
-
-		std::cout << currentMaxCalories;
+		std::cout << maxCalories;
 	}
 }
