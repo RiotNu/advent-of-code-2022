@@ -6,7 +6,7 @@ namespace Puzzle01B
 {
 	void PrintSolution()
 	{
-		auto input = Utilities::ReadAllLinesInFile("Puzzle01.input");	
+		auto input = Utilities::ReadAllLinesInFile("Puzzle01.input");
 
 		// Track the total snack calories for each elf.
 		constexpr auto sumSnackCaloriesForElf =
