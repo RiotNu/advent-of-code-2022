@@ -15,10 +15,7 @@ namespace Puzzle02A
 		Move m_playerMove;
 		Move m_opponentMove;
 
-		bool operator==(const MovePair& other) const
-		{
-			return m_playerMove == other.m_playerMove && m_opponentMove == other.m_opponentMove;
-		}
+		auto operator<=>(const MovePair&) const = default;
 	};
 }
 
