@@ -9,5 +9,6 @@
 
 // add headers that you want to pre-compile here
 #include "stdc++.h"
+#include <range/v3/all.hpp>
 
 #endif //PCH_H
