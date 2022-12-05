@@ -4,10 +4,77 @@
 
 namespace Puzzle05B
 {
-    void PrintSolution()
-    {
-        auto input = Utilities::ReadAllLinesInFile("Puzzle05.input");
+	void PrintSolution()
+	{
+		auto input = Utilities::ReadAllLinesInFile("Puzzle05.input");
 
-        std::cout << "Puzzle05B not yet solved!";
-    }
+		// Find the empty line in our input.
+		auto blankIndex = -1;
+		for (auto i = 0; i < input.size(); ++i)
+		{
+			if (input[i].size() == 0)
+			{
+				blankIndex = i;
+				break;
+			}
+		}
+
+		// Setup initial state.
+		auto stacks = std::vector<std::stack<char>>{};
+		const auto& stackLabels = input[blankIndex - 1];
+		for (auto i = 0; i < stackLabels.size(); ++i)
+		{
+			if (stackLabels[i] == ' ')
+			{
+				continue;
+			}
+
+			auto currentStack = std::stack<char>{};
+			for (auto lineIndex = blankIndex - 2; lineIndex >= 0; --lineIndex)
+			{
+				const auto& line = input[lineIndex];
+				const auto& crate = line[i];
+				if (crate == ' ')
+				{
+					break;
+				}
+
+				currentStack.push(crate);
+			}
+
+			stacks.emplace_back(currentStack);
+		}
+
+		// Process moves.
+		for (auto i = blankIndex + 1; i < input.size(); ++i)
+		{
+			const auto& line = input[i];
+			auto tokens = Utilities::SplitString(line, " ");
+			auto count = std::stoi(tokens[1]);
+			auto from = std::stoi(tokens[3]) - 1;
+			auto to = std::stoi(tokens[5]) - 1;
+
+			auto crates = std::vector<char>{};
+			while (count-- > 0)
+			{
+				auto crate = stacks[from].top();
+				stacks[from].pop();
+				crates.emplace_back(crate);
+			}
+
+			for (auto crate : crates | std::ranges::views::reverse)
+			{
+				stacks[to].push(crate);
+			}
+		}
+
+		// Build output string from top of each stack.
+		auto output = std::stringstream{};
+		for (const auto& currentStack : stacks)
+		{
+			output << currentStack.top();
+		}
+
+		std::cout << output.str();
+	}
 }
