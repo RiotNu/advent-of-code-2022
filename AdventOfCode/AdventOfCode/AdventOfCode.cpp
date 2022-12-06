@@ -7,8 +7,8 @@
 
 int main()
 {
-	constexpr auto partASolver = &Puzzle06A::PrintSolution;
-	constexpr auto partBSolver = &Puzzle06B::PrintSolution;
+	constexpr auto partASolver = &Puzzle07A::PrintSolution;
+	constexpr auto partBSolver = &Puzzle07B::PrintSolution;
 
 	for (auto i = 0; i < 2; ++i)
 	{
