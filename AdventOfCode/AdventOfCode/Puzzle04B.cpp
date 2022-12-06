@@ -6,23 +6,15 @@ namespace Puzzle04B
 {
 	void PrintSolution()
 	{
-		auto input = Utilities::ReadAllLinesInFile("Puzzle04.input");
-
-		auto partiallyContained = 0;
-		for (const auto& line : input)
-		{
-			auto elves = Utilities::SplitString(line, ",");
-
-			constexpr auto transform = [](const std::string& str) { return std::stoi(str); };
-			auto left = Utilities::SplitStringAndTransform<int>(elves[0], "-", transform);
-			auto right = Utilities::SplitStringAndTransform<int>(elves[1], "-", transform);
-
-			if (left[0] <= right[0] && right[0] <= left[1] || right[0] <= left[0] && left[0] <= right[1])
+		std::cout << ranges::accumulate(
+			Utilities::ReadAllLinesInFile("Puzzle04.input"),
+			0,
+			[](int sum, const std::string& line)
 			{
-				++partiallyContained;
-			}
-		}
-
-		std::cout << partiallyContained;
+				auto [_, leftBegin, leftEnd, rightBegin, rightEnd] = scn::scan_tuple<int, int, int, int>(line, "{}-{},{}-{}");
+				return (leftBegin <= rightBegin && rightBegin <= leftEnd || rightBegin <= leftBegin && leftBegin <= rightEnd)
+					? sum + 1
+					: sum;
+			});
 	}
 }
