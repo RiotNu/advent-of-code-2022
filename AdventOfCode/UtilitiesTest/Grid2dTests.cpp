@@ -102,3 +102,63 @@ TEST(Grid2dTests, ComparisonOperators)
 		EXPECT_GT(right, left);
 	}
 }
+
+TEST(Grid2dTests, IndexToCoordinatesConversions)
+{
+	auto grid = Utilities::Grid2d<int>{ 2, 3 };
+	ASSERT_EQ(grid.size(), 6);
+
+	{
+		auto [x, y] = grid.GetCoordinatesFromIndex(0);
+		EXPECT_EQ(x, 0);
+		EXPECT_EQ(y, 0);
+
+		auto i = grid.GetIndexFromCoordinates(x, y);
+		EXPECT_EQ(i, 0);
+	}
+
+	{
+		auto [x, y] = grid.GetCoordinatesFromIndex(1);
+		EXPECT_EQ(x, 1);
+		EXPECT_EQ(y, 0);
+
+		auto i = grid.GetIndexFromCoordinates(x, y);
+		EXPECT_EQ(i, 1);
+	}
+
+	{
+		auto [x, y] = grid.GetCoordinatesFromIndex(2);
+		EXPECT_EQ(x, 0);
+		EXPECT_EQ(y, 1);
+
+		auto i = grid.GetIndexFromCoordinates(x, y);
+		EXPECT_EQ(i, 2);
+	}
+
+	{
+		auto [x, y] = grid.GetCoordinatesFromIndex(3);
+		EXPECT_EQ(x, 1);
+		EXPECT_EQ(y, 1);
+
+		auto i = grid.GetIndexFromCoordinates(x, y);
+		EXPECT_EQ(i, 3);
+	}
+
+	{
+		auto [x, y] = grid.GetCoordinatesFromIndex(4);
+		EXPECT_EQ(x, 0);
+		EXPECT_EQ(y, 2);
+
+		auto i = grid.GetIndexFromCoordinates(x, y);
+		EXPECT_EQ(i, 4);
+	}
+
+	{
+		auto [x, y] = grid.GetCoordinatesFromIndex(5);
+		EXPECT_EQ(x, 1);
+		EXPECT_EQ(y, 2);
+
+		auto i = grid.GetIndexFromCoordinates(x, y);
+		EXPECT_EQ(i, 5);
+	}
+}

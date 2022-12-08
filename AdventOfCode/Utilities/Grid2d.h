@@ -26,12 +26,22 @@ namespace Utilities
 		// Height of the grid.
 		size_t Height() const { return m_height; }
 
-		// Returns string representation of the grid.
-		std::string ToString() const
+		// Returns the size of the underlying vector.
+		size_t size() const { return m_data.size(); }
+
+		// Converts an index for the underlying vector into (x, y) coordinates.
+		auto GetCoordinatesFromIndex(size_t i) const
 		{
-			auto stream = std::stringstream{};
-			stream << *this;
-			return stream.str();
+			Utilities::VerifyElseCrash(i < m_data.size());
+			return std::make_pair<size_t, size_t>(i % m_width, i / m_width);
+		}
+
+		// Converts (x, y) coordinates into an index for the underlying vector.
+		size_t GetIndexFromCoordinates(size_t x, size_t y) const
+		{
+			Utilities::VerifyElseCrash(x < m_width);
+			Utilities::VerifyElseCrash(y < m_height);
+			return y * m_width + x;
 		}
 
 		// Retrieves reference to the value stored at the provided coordinates.
@@ -48,6 +58,18 @@ namespace Utilities
 			Utilities::VerifyElseCrash(x < m_width);
 			Utilities::VerifyElseCrash(y < m_height);
 			return m_data.at(y * m_width + x);
+		}
+
+		// Retrieves reference to the value stored at the provided index.
+		T& at(size_t i)
+		{
+			return m_data.at(i);
+		}
+
+		// Retrieves constant reference to the value stored at the provided index.
+		const T& at(size_t i) const
+		{
+			return m_data.at(i);
 		}
 
 		// Standard iterator overloads.
@@ -67,6 +89,14 @@ namespace Utilities
 		// Spaceship operator overload for comparison operators.
 		auto operator<=>(const Grid2d<T>&) const = default;
 		
+		// Returns string representation of the grid.
+		std::string ToString() const
+		{
+			auto stream = std::stringstream{};
+			stream << *this;
+			return stream.str();
+		}
+
 		// Insertion operator overload.
 		friend std::ostream& operator<<(std::ostream& stream, const Grid2d<T>& grid)
 		{
