@@ -32,7 +32,7 @@ namespace Puzzle09B
 		}
 		else if (head.x == tail.x)
 		{
-			return Point{ tail.x, head.y > tail.y ? head.y - 1 : tail.y - 1 };
+			return Point{ tail.x, head.y > tail.y ? head.y - 1 : head.y + 1 };
 		}
 		else
 		{
