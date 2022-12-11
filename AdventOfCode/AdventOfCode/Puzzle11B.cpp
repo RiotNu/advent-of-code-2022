@@ -7,8 +7,8 @@ namespace Puzzle11B
 	class Monkey
 	{
 	public:
-		Monkey(const std::vector<int64_t>& items, std::function<int64_t(int64_t)> operation, int div, int trueMonkey, int falseMonkey)
-			: m_items(items), m_operation(operation), m_div(div), m_trueMonkey(trueMonkey), m_falseMonkey(falseMonkey)
+		Monkey(const std::vector<int64_t>& items, std::function<int64_t(int64_t)> operation, std::function<int(int64_t)> getThrowTarget)
+			: m_items(items), m_operation(operation), m_getThrowTarget(getThrowTarget)
 		{
 		}
 
@@ -23,7 +23,7 @@ namespace Puzzle11B
 				++m_totalInspects;
 				auto worry = m_operation(item);
 				worry = worry % m_maxWorry;
-				auto target = worry % m_div == 0 ? m_trueMonkey : m_falseMonkey;
+				auto target = m_getThrowTarget(worry);
 				monkeys[target].m_items.emplace_back(worry);
 			}
 
@@ -53,11 +53,9 @@ namespace Puzzle11B
 	private:
 		std::vector<int64_t> m_items;
 		std::function<int64_t(int64_t)> m_operation;
+		std::function<int(int64_t)> m_getThrowTarget;
 		int64_t m_totalInspects = 0;
 		int64_t m_maxWorry = 0;
-		int m_div;
-		int m_trueMonkey;
-		int m_falseMonkey;
 	};
 
 	void PrintSolution()
@@ -79,18 +77,18 @@ namespace Puzzle11B
 			{
 				operation = op == '*'
 					? std::function<int64_t(int64_t)>{ [](int64_t item) { return item * item; } }
-				: std::function<int64_t(int64_t)>{ [](int64_t item) { return item + item; } };
+					: std::function<int64_t(int64_t)>{ [](int64_t item) { return item + item; } };
 			}
 			else
 			{
 				auto argInt = std::stoi(arg);
 				operation = op == '*'
 					? std::function<int64_t(int64_t)>{ [argInt](int64_t item) { return item * argInt; } }
-				: std::function<int64_t(int64_t)>{ [argInt](int64_t item) { return item + argInt; } };
+					: std::function<int64_t(int64_t)>{ [argInt](int64_t item) { return item + argInt; } };
 			}
 
 			divisors.emplace_back(div);
-			monkeys.emplace_back(items, operation, div, trueMonkey, falseMonkey);
+			monkeys.emplace_back(items, operation, [div, trueMonkey, falseMonkey](int64_t item) { return item % div == 0 ? trueMonkey : falseMonkey; });
 		}
 
 		auto maxWorry = ranges::accumulate(divisors, 1ull, [](int64_t total, int64_t val) { return total * val; });
