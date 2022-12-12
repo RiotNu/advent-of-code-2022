@@ -397,3 +397,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Exclude built boost artifacts (more than 1 GB)
+ext/boost_1_80_0/lib/
