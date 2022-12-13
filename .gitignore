@@ -402,4 +402,5 @@ FodyWeavers.xsd
 !ext/boost_1_80_0/include/boost/preprocessor/debug/
 !ext/boost_1_80_0/include/boost/predef/architecture/x86/
 !ext/boost_1_80_0/include/boost/predef/hardware/simd/x86/
+!ext/boost_1_80_0/include/boost/predef/hardware/simd/arm/
 ext/boost_1_80_0/lib/
