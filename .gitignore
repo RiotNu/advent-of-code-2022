@@ -399,4 +399,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Exclude built boost artifacts (more than 1 GB)
+!ext/boost_1_80_0/include/boost/preprocessor/debug/
 ext/boost_1_80_0/lib/
