@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Assertions.h" />
     <ClInclude Include="Grid2d.h" />
+    <ClInclude Include="Grid3d.h" />
     <ClInclude Include="Hashing.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="pch.h" />

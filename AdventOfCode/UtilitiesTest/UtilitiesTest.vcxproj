@@ -38,6 +38,7 @@
   <ItemGroup>
     <ClCompile Include="AssertionsTests.cpp" />
     <ClCompile Include="Grid2dTests.cpp" />
+    <ClCompile Include="Grid3dTests.cpp" />
     <ClCompile Include="HashingTests.cpp" />
     <ClCompile Include="InputTests.cpp" />
     <ClCompile Include="pch.cpp">
