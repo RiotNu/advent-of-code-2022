@@ -27,8 +27,9 @@ namespace Puzzle17A
 
 		void WriteToGrid(Utilities::Grid2d<char>& grid, char character)
 		{
-			for (const auto& pieceOffset : pieceOffsets)
+			for (auto i = 0; i < pieces; ++i)
 			{
+				const auto& pieceOffset = pieceOffsets[i];
 				auto piecePosition = anchor + pieceOffset;
 				grid.at(piecePosition.x, piecePosition.y) = character;
 			}
@@ -36,8 +37,9 @@ namespace Puzzle17A
 
 		bool Move(const Utilities::Grid2d<char>& grid, const Point& offset)
 		{
-			for (const auto& pieceOffset : pieceOffsets)
+			for (auto i = 0; i < pieces; ++i)
 			{
+				const auto& pieceOffset = pieceOffsets[i];
 				auto updatedPiecePosition = anchor + pieceOffset + offset;
 				if (grid.at(updatedPiecePosition.x, updatedPiecePosition.y) != '.')
 				{
@@ -52,8 +54,9 @@ namespace Puzzle17A
 		Point GetHighestPiece() const
 		{
 			auto highestPiece = anchor + pieceOffsets[0];
-			for (const auto& pieceOffset : pieceOffsets)
+			for (auto i = 0; i < pieces; ++i)
 			{
+				const auto& pieceOffset = pieceOffsets[i];
 				auto piecePosition = anchor + pieceOffset;
 				if (piecePosition.y < highestPiece.y)
 				{
