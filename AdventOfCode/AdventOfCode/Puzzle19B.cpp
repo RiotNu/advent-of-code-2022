@@ -30,9 +30,6 @@ namespace Puzzle19B
 
 		// Counts of each robot.
 		std::array<int, static_cast<int>(Resource::Count)> robots;
-
-		// Excludes minutes and declined robots state. This is safe since we work forwards in time. (Later duplicates can be dropped.)
-		bool operator==(const Snapshot& other) const { return resources == other.resources && robots == other.robots; }
 	};
 
 	int GetMaxGeodes(const Blueprint& blueprint)
