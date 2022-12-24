@@ -102,8 +102,10 @@ namespace Puzzle24B
 
 	auto CalculateBlizzardStates(const auto& initialState, const auto& emptyGrid, auto& blizzards)
 	{
+		// Cycle length is least common multiple of the inner boundary of the grid, where blizzards move.
+		auto cycleLength = std::lcm(emptyGrid.Width() - 2, emptyGrid.Height() - 2);
 		auto blizzardStates = std::vector<Utilities::Grid2d<char>>{ initialState };
-		auto tickBlizzards = [&blizzards, &blizzardStates, &emptyGrid]()
+		for (auto i : std::ranges::views::iota(1, static_cast<int>(cycleLength)))
 		{
 			auto state = emptyGrid;
 			for (auto& blizzard : blizzards)
@@ -111,48 +113,9 @@ namespace Puzzle24B
 				blizzard.Tick(state);
 			}
 			blizzardStates.emplace_back(state);
-		};
-
-		// Load the first 5 blizzard states.
-		constexpr auto minStates = 5;
-		while (blizzardStates.size() < minStates)
-		{
-			tickBlizzards();
 		}
 
-		// Search for cycle in blizzard states.
-		auto cycleFinder = std::unordered_map<std::string, int>{};
-		auto cycleLength = 0;
-		auto minute = minStates;
-		while (true)
-		{
-			tickBlizzards();
-
-			auto builder = std::stringstream{};
-			for (auto i = blizzardStates.size() - 1; i >= blizzardStates.size() - minStates; --i)
-			{
-				for (auto c : blizzardStates[i])
-				{
-					builder << c;
-				}
-			}
-
-			auto recentBlizzards = builder.str();
-			if (!cycleFinder.contains(recentBlizzards))
-			{
-				cycleFinder[recentBlizzards] = minute;
-			}
-			else
-			{
-				cycleLength = minute - cycleFinder.at(recentBlizzards);
-				break;
-			}
-
-			++minute;
-		}
-
-		// Take blizzard states from the initial state up until the cycle repeats.
-		return blizzardStates | std::ranges::views::take(cycleLength) | std::ranges::to<std::vector>();
+		return blizzardStates;
 	}
 
 	auto BreadthFirstSearch(const auto& blizzardStates, const auto& source, const auto& target, const auto& initialHistory)
